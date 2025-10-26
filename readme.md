@@ -45,6 +45,7 @@ The final corpus includes **2,400 English lyrics**, equally distributed across e
 ```
 rock · pop · hip-hop · r-n-b · country · jazz · electronic · gospel
 ```
+Here is the final dataset link: [TCC MBA IA & Big Data – Lyrics and Music Genres Dataset](https://www.kaggle.com/datasets/yuricordeiro/tcc-mba-ia-usp)
 
 The dataset was built by integrating three open sources:
 - [Scrapped Lyrics Dataset – Kaggle](https://www.kaggle.com/datasets/neisse/scrapped-lyrics-from-6-genres)  
