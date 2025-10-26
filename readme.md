@@ -1,157 +1,157 @@
-# Inteligência Artificial para Classificação de Gêneros Musicais por Análise de Letras
+# Artificial Intelligence for Music Genre Classification through Lyrics Analysis
 
-> “Se, para Chomsky (1965), a beleza da linguagem residia no poder de regras finitas gerarem infinitas expressões, ao longo deste trabalho entendemos que os vetores densos e modelos atuais revelam outro infinito — o das relações emergentes em espaços contínuos de alta dimensão.”
-
----
-
-<!-- Caso queira adicionar uma imagem de capa, descomente abaixo -->
-<!-- ![Capa do projeto](docs/cover_music_ai.png) -->
-
-**Autor:** Yuri Cordeiro de Almeida  
-**MBA em Inteligência Artificial e Big Data – USP/ICMC (2025)**  
-**Orientador:** Prof. Dr. Ivandre Paraboni  
+> "If, for Chomsky (1965), the beauty of language lay in the power of finite rules to generate infinite expressions, throughout this work we understand that dense vectors and modern models reveal another kind of infinity — that of emergent relations in continuous high-dimensional spaces."
 
 ---
 
-## 1. Sobre o Projeto
+<!-- Optional cover image -->
+<!-- ![Project cover](docs/cover_music_ai.png) -->
 
-Este repositório reúne o código, resultados e documentação do Trabalho de Conclusão de Curso do MBA em Inteligência Artificial e Big Data da USP/ICMC.  
-O estudo investiga **a classificação automática de gêneros musicais a partir das letras**, comparando diferentes representações textuais e modelos de *Processamento de Linguagem Natural (PLN)* e *Aprendizado de Máquina*.
-
-A proposta parte da ideia de que, embora a maioria dos sistemas de recomendação musical utilize dados acústicos, **as letras também expressam padrões semânticos e culturais** que permitem identificar o estilo musical de uma canção.  
-
----
-
-## 2. Contexto e Motivação
-
-A classificação de gênero musical é um desafio recorrente em *Music Information Retrieval (MIR)*.  
-Tradicionalmente, essa tarefa depende de características acústicas como MFCCs e espectrogramas, exigindo alto custo de processamento.  
-Neste trabalho, o foco desloca-se para o **texto**: investigar o quanto o conteúdo lírico, isolado do áudio, é capaz de indicar o gênero musical de forma confiável.  
-
-O estudo também busca comparar abordagens clássicas e modernas sob três dimensões:
-- Desempenho (métricas quantitativas);
-- Interpretabilidade dos modelos;
-- Custo computacional e reprodutibilidade.
+**Author:** Yuri Cordeiro de Almeida  
+**MBA in Artificial Intelligence and Big Data – University of São Paulo (USP/ICMC, 2025)**  
+**Advisor:** Prof. Dr. Ivandre Paraboni  
 
 ---
 
-## 3. Corpus
+## 1. About the Project
 
-O corpus utilizado contém **2.400 letras em inglês**, divididas igualmente entre oito gêneros principais:
+This repository contains the code, results, and documentation of the Capstone Project developed for the MBA in Artificial Intelligence and Big Data at USP/ICMC.  
+The study investigates **automatic music genre classification based on lyrics**, comparing different textual representations and models of *Natural Language Processing (NLP)* and *Machine Learning (ML)*.
+
+The central hypothesis is that, although most recommendation systems rely on audio data, **lyrics also encode semantic and cultural patterns** that can reveal the musical style of a song.
+
+---
+
+## 2. Background and Motivation
+
+Music genre classification is a recurring challenge in *Music Information Retrieval (MIR)*.  
+Traditionally, this task relies on acoustic features such as MFCCs and spectrograms, which demand high computational cost.  
+This research focuses instead on the **text** itself — exploring how far lyrical content, without any audio, can reliably indicate musical genres.
+
+The work also compares classic and modern approaches along three dimensions:
+- Performance (quantitative metrics)  
+- Model interpretability  
+- Computational cost and reproducibility
+
+---
+
+## 3. Dataset
+
+The final corpus includes **2,400 English lyrics**, equally distributed across eight major genres:
 
 ```
 rock · pop · hip-hop · r-n-b · country · jazz · electronic · gospel
 ```
 
-Os dados foram coletados e integrados a partir de três bases públicas:
+The dataset was built by integrating three open sources:
 - [Scrapped Lyrics Dataset – Kaggle](https://www.kaggle.com/datasets/neisse/scrapped-lyrics-from-6-genres)  
 - [Spotify Tracks Dataset – Kaggle](https://www.kaggle.com/datasets/maharshipandya/spotify-tracks-dataset)  
 - [Melon Playlist Dataset – Universitat Pompeu Fabra](https://doi.org/10.5281/zenodo.2628366)
 
-As letras foram filtradas, padronizadas e balanceadas (300 amostras por gênero).  
-Por questões de direitos autorais e tamanho, apenas um **subconjunto representativo** está disponível neste repositório, junto com scripts para reconstrução do corpus completo.
+Lyrics were filtered, standardized, and balanced (300 samples per genre).  
+Due to copyright and size constraints, only a **representative subset** is available in this repository, along with scripts to reconstruct the full corpus.
 
 ---
 
-## 4. Modelagem e Métodos
+## 4. Modeling and Methods
 
-Foram comparadas quatro abordagens principais de classificação:
+Four main classification approaches were compared:
 
-| Grupo | Abordagem | Ferramentas |
-|-------|------------|-------------|
-| **Baseline** | TF-IDF + Regressão Logística / SVM | `scikit-learn` |
-| **Embeddings Fixos** | MPNet, GloVe, FastText | `sentence-transformers`, `transformers` |
-| **Transformers** | DistilBERT (fine-tuning supervisionado) | `transformers`, `torch` |
-| **Hierárquico** | Rede Hierárquica (HAN) com GRUs bidirecionais | `keras`, `tensorflow` |
+| Group | Approach | Tools |
+|-------|-----------|-------|
+| **Baseline** | TF-IDF + Logistic Regression / SVM | `scikit-learn` |
+| **Fixed Embeddings** | MPNet, GloVe, FastText | `sentence-transformers`, `transformers` |
+| **Transformers** | DistilBERT (fine-tuned) | `transformers`, `torch` |
+| **Hierarchical** | HAN (GRU-based Hierarchical Neural Network) | `keras`, `tensorflow` |
 
-### Parâmetros principais
+### Key Parameters
 
-**TF-IDF + Regressão Logística**
+**TF-IDF + Logistic Regression**
 ```python
 TfidfVectorizer(max_features=5000, ngram_range=(1,2))
 LogisticRegression(solver='lbfgs', multi_class='multinomial', max_iter=1000)
 ```
 
-**SVM Linear**
+**Linear SVM**
 ```python
 LinearSVC(C=1.0, penalty='l2', loss='squared_hinge', max_iter=1000)
 ```
 
 **DistilBERT Fine-Tuning**
-- Modelo: `distilbert-base-uncased`
-- Parâmetros: `max_length=512`, `batch_size=16`, `learning_rate=3e-5`, `epochs=3`
+- Model: `distilbert-base-uncased`
+- Parameters: `max_length=512`, `batch_size=16`, `learning_rate=3e-5`, `epochs=3`
 
 **HAN (Hierarchical Attention Network)**
-- Estrutura: GRU bidirecional + pooling
-- Embeddings: GloVe 100d e FastText 300d
-- Limite de entrada: 15 sentenças × 20 palavras
+- Structure: Bidirectional GRU + pooling  
+- Embeddings: GloVe 100d and FastText 300d  
+- Input limit: 15 sentences × 20 words
 
 ---
 
-## 5. Resultados
+## 5. Results
 
-| Modelo | Representação | F1-macro | Acurácia |
+| Model | Representation | F1-macro | Accuracy |
 |:--|:--|:--:|:--:|
-| MPNet + Regressão Logística | Embeddings fixos | **0.50** | **0.51** |
-| DistilBERT (fine-tuning) | Transformer contextual | 0.48 | 0.49 |
-| TF-IDF + Regressão Logística | Vetorização esparsa | 0.43 | 0.44 |
-| HAN + FastText | Estrutura hierárquica | 0.33 | 0.33 |
+| MPNet + Logistic Regression | Fixed embeddings | **0.50** | **0.51** |
+| DistilBERT (fine-tuned) | Contextual Transformer | 0.48 | 0.49 |
+| TF-IDF + Logistic Regression | Sparse vectorization | 0.43 | 0.44 |
+| HAN + FastText | Hierarchical structure | 0.33 | 0.33 |
 
-Os resultados mostram que **embeddings modernos combinados a classificadores lineares** alcançam desempenho comparável a Transformers fine-tunados, mas com menor custo computacional.  
-Modelos clássicos, como o TF-IDF, ainda se mantêm competitivos e interpretáveis — úteis como baseline robusto.
+Results show that **modern embeddings combined with simple linear classifiers** can reach performance comparable to fine-tuned Transformers, with lower computational cost.  
+Classic baselines like TF-IDF remain competitive and interpretable — useful as a strong reference.
 
 ---
 
-## 6. Execução
+## 6. Reproduction
 
-Clone o repositório e instale as dependências:
+Clone the repository and install dependencies:
 ```bash
 git clone https://github.com/cordeirox/tcc-mba-ia-bigdata-usp.git
 cd tcc-mba-ia-bigdata-usp
 pip install -r requirements.txt
 ```
 
-Para executar os experimentos:
+Run experiments:
 ```bash
 python src/train_models.py
 ```
 
-Os notebooks de cada abordagem estão organizados por etapa:
-1. Pré-processamento  
-2. TF-IDF + modelos lineares  
-3. Embeddings MPNet  
-4. Fine-tuning DistilBERT  
-5. Modelo hierárquico (HAN)
+The notebooks are organized by stage:
+1. Data preprocessing  
+2. TF-IDF and classical models  
+3. MPNet embeddings  
+4. DistilBERT fine-tuning  
+5. Hierarchical model (HAN)
 
 ---
 
-## 7. Principais Conclusões
+## 7. Main Conclusions
 
-- **Letras de música são representações válidas de gênero**, especialmente com embeddings semânticos.  
-- **Classificadores lineares** continuam relevantes quando combinados a boas representações.  
-- **Transformers** entregam resultados próximos, mas exigem mais recursos de hardware.  
-- **Modelos hierárquicos**, embora promissores, demandam corpora extensos e tuning refinado.  
+- **Lyrics contain meaningful linguistic signals** that can support genre classification.  
+- **Linear models** remain effective when combined with robust embeddings.  
+- **Transformers** offer comparable accuracy but at higher computational cost.  
+- **Hierarchical models** show potential but require larger datasets and tuning.  
 
-Este estudo reforça que, mesmo diante da sofisticação das arquiteturas modernas, a **clareza interpretativa e o custo computacional** ainda são fatores decisivos para aplicações reais em *Music Information Retrieval*.
-
----
-
-## 8. Referência
-
-DE ALMEIDA, Y. C. *Classificação de Gêneros Musicais a partir das Letras: Estudo comparativo de modelos estatísticos e neurais de aprendizado de máquina em PLN aplicado à música.*  
-MBA em Inteligência Artificial e Big Data – USP/ICMC, 2025.
+This work reinforces that, even with sophisticated architectures, **interpretability and efficiency** remain key factors for practical applications in *Music Information Retrieval*.
 
 ---
 
-## 9. Licença
+## 8. Reference
 
-Este repositório é distribuído sob a **Licença MIT**, permitindo uso, cópia e modificação mediante crédito ao autor.  
-Consulte o arquivo [LICENSE](LICENSE) para mais informações.
+DE ALMEIDA, Y. C. *Music Genre Classification from Lyrics: Comparative Study of Statistical and Neural Models for NLP Applied to Music.*  
+MBA in Artificial Intelligence and Big Data – USP/ICMC, 2025.
 
 ---
 
-## 10. Contato
+## 9. License
 
-📍 São Paulo, Brasil  
+This repository is distributed under the **MIT License**, allowing reuse, modification, and distribution with credit to the author.  
+See the [LICENSE](LICENSE) file for details.
+
+---
+
+## 10. Contact
+
+📍 São Paulo, Brazil  
 📧 [yuricordeiro@usp.br](mailto:yuricordeiro@usp.br)  
 🔗 [linkedin.com/in/yuricordeiro](https://linkedin.com/in/yuricordeiro)
