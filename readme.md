@@ -10,7 +10,7 @@
 **Author:** Yuri Cordeiro de Almeida  
 **MBA in Artificial Intelligence and Big Data – University of São Paulo (USP/ICMC, 2025)**  
 **Advisor:** Prof. Dr. Ivandre Paraboni  
-<p style="font-size:13px; color:gray;">
+<p style="font-size:10px; color:gray;">
 <i>Final grade: 9.8 / 10 – MBA in Artificial Intelligence and Big Data, USP/ICMC (2025)</i>
 </p>
 
