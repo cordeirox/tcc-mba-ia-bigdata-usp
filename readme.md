@@ -1,6 +1,6 @@
 # Inteligência Artificial para Classificação de Gêneros Musicais por Análise de Letras
 
-> “As palavras carregam ritmo, emoção e identidade — e nelas, a inteligência artificial pode reconhecer música.”
+> “Se, para Chomsky (1965), a beleza da linguagem residia no poder de regras finitas gerarem infinitas expressões, ao longo deste trabalho entendemos que os vetores densos e modelos atuais revelam outro infinito — o das relações emergentes em espaços contínuos de alta dimensão.”
 
 ---
 
