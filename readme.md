@@ -46,7 +46,7 @@ rock · pop · hip-hop · r-n-b · country · jazz · electronic · gospel
 The dataset was built by integrating three open sources:
 - [Scrapped Lyrics Dataset – Kaggle](https://www.kaggle.com/datasets/neisse/scrapped-lyrics-from-6-genres)  
 - [Spotify Tracks Dataset – Kaggle](https://www.kaggle.com/datasets/maharshipandya/spotify-tracks-dataset)  
-- [Melon Playlist Dataset – Universitat Pompeu Fabra](https://doi.org/10.5281/zenodo.2628366)
+- [Melon Playlist Dataset – Universitat Pompeu Fabra] - Thanks to Dmitry Bogdanov
 
 Lyrics were filtered, standardized, and balanced (300 samples per genre).  
 Due to copyright and size constraints, only a **representative subset** is available in this repository, along with scripts to reconstruct the full corpus.
@@ -153,5 +153,5 @@ See the [LICENSE](LICENSE) file for details.
 ## 10. Contact
 
 📍 São Paulo, Brazil  
-📧 [yuricordeiro@usp.br](mailto:yuricordeiro@usp.br)  
+📧 [yuri.cordeirox@gmail.com](mailto:yuri.cordeirox@gmail.com)  
 🔗 [linkedin.com/in/yuricordeiro](https://linkedin.com/in/yuricordeiro)
